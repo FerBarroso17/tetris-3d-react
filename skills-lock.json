@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "skills": {
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "computedHash": "9e1c8b3103f92fa8092568a44fe64858de7c5c9dc65ce4bea8f168080e889cfd"
+    },
+    "game-architecture": {
+      "source": "opusgamelabs/game-creator",
+      "sourceType": "github",
+      "computedHash": "e7d56f1b637bca15a2f8c35c1780225f97e8df99fad39ae6377398dfeb9178a0"
+    },
+    "game-designer": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "computedHash": "1a9671692befb9dd664ec2ebaba1fb980d0c60157e1ddaa024dfa9d9c3cf1ff8"
+    },
+    "r3f-interaction": {
+      "source": "enzed/r3f-skills",
+      "sourceType": "github",
+      "computedHash": "702bc09fc0c20a325b93bacd5fc1361eae04b46dcb90534c04bd3c87a5cf52d7"
+    },
+    "react-three-game": {
+      "source": "prnthh/react-three-game-skill",
+      "sourceType": "github",
+      "computedHash": "34c863d78b3da444f411d5c0402c3abe5fa7410e40e614245ea108a58d57920c"
+    }
+  }
+}
