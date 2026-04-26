@@ -1,50 +1,39 @@
-import { useState } from 'react'
-import './App.css'
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, Environment } from '@react-three/drei';
+import { GameBoard } from './components/GameBoard';
+import { GameManager } from './components/GameManager';
+import { useInputSystem } from './systems/InputSystem';
+import { HUD } from './ui/HUD';
+import './App.css';
+
+// Input hook wrapper
+const InputController = () => {
+  useInputSystem();
+  return null;
+};
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <main className="container">
-      <nav className="navbar">
-        <div className="logo">Vite + React</div>
-        <div className="nav-links">
-          <span>Inicio</span>
-          <span>Características</span>
-          <span>Documentación</span>
-        </div>
-      </nav>
-
-      <section className="hero">
-        <div className="hero-content">
-          <h1 className="hero-title animate-float">
-            Eleva tu Desarrollo <br />
-            <span className="text-gradient">con Velocidad</span>
-          </h1>
-          <p className="hero-subtitle">
-            Una base sólida y moderna preparada para tus ideas más ambiciosas. 
-            Experimenta el rendimiento de Vite con la flexibilidad de React.
-          </p>
-          
-          <div className="card glass-panel">
-            <h3>Contador Interactivo</h3>
-            <p>Prueba la reactividad instantánea:</p>
-            <button className="btn-primary" onClick={() => setCount((count) => count + 1)}>
-              El valor es {count}
-            </button>
-          </div>
-        </div>
+    <div className="w-full h-screen relative bg-slate-900 overflow-hidden" style={{ width: '100vw', height: '100vh', backgroundColor: '#0f172a' }}>
+      <HUD />
+      <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
+        {/* Environment and Lights */}
+        <ambientLight intensity={0.5} />
+        <pointLight position={[10, 10, 10]} intensity={1} color="#ffffff" />
+        <spotLight position={[0, 20, 10]} angle={0.3} penumbra={1} intensity={2} castShadow />
         
-        <div className="hero-visual">
-          <div className="glow-sphere"></div>
-        </div>
-      </section>
-
-      <footer className="footer">
-        <p>&copy; 2026 Proyecto Vite Premium. Preparado con ❤️ por Antigravity.</p>
-      </footer>
-    </main>
-  )
+        {/* Core Game Systems */}
+        <GameManager />
+        <InputController />
+        
+        {/* Visuals */}
+        <GameBoard />
+        
+        {/* Optional: Add orbit controls for debugging if needed, but for gameplay we want a fixed camera */}
+        {/* <OrbitControls enablePan={false} /> */}
+      </Canvas>
+    </div>
+  );
 }
 
-export default App
+export default App;
