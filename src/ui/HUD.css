@@ -88,3 +88,63 @@
 .pointer-auto {
   pointer-events: auto;
 }
+
+/* Market Footer Styles */
+.market-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.9);
+  border-top: 1px solid var(--glass-border);
+  padding: 8px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  pointer-events: auto;
+  z-index: 20;
+}
+
+.marquee-container {
+  display: inline-block;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-container:hover {
+  animation-play-state: paused;
+}
+
+.market-item {
+  display: inline-block;
+  margin: 0 20px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.market-item strong {
+  color: white;
+  margin-right: 8px;
+}
+
+.market-value {
+  color: var(--secondary);
+  font-family: monospace;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.market-var {
+  font-size: 0.8rem;
+}
+
+.var-up {
+  color: #10b981; /* Verde */
+}
+
+.var-down {
+  color: #ef4444; /* Rojo */
+}
+
+@keyframes marquee {
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
+}

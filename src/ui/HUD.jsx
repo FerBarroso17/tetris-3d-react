@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { useGameState } from '../core/GameState';
+import { useMarketData } from './useMarketData';
 import './HUD.css';
 
 // SRP: Componente exclusivo para la puntuación
@@ -65,6 +67,52 @@ const GameModal = () => {
   );
 };
 
+// SRP: Componente exclusivo para el ticker financiero
+const MarketFooter = () => {
+  const { quotes, isLoading, error, fetchData } = useMarketData();
+
+  useEffect(() => {
+    fetchData();
+    // Actualizar cada 2 minutos
+    const interval = setInterval(fetchData, 120000);
+    return () => clearInterval(interval);
+  }, [fetchData]);
+
+  if (isLoading || error || quotes.length === 0) return null;
+
+  return (
+    <div className="market-footer">
+      <div className="marquee-container">
+        {quotes.map((quote, index) => {
+          const isUp = quote['class-variacion'] === 'up';
+          return (
+            <div key={index} className="market-item">
+              <strong>{quote.nombre}:</strong>
+              <span className="market-value">${quote.venta || quote.valor}</span>
+              <span className={`market-var ${isUp ? 'var-up' : 'var-down'}`}>
+                {isUp ? '▲' : '▼'} {quote.variacion}
+              </span>
+            </div>
+          );
+        })}
+        {/* Duplicamos para efecto infinito en el marquee continuo */}
+        {quotes.map((quote, index) => {
+          const isUp = quote['class-variacion'] === 'up';
+          return (
+            <div key={`dup-${index}`} className="market-item">
+              <strong>{quote.nombre}:</strong>
+              <span className="market-value">${quote.venta || quote.valor}</span>
+              <span className={`market-var ${isUp ? 'var-up' : 'var-down'}`}>
+                {isUp ? '▲' : '▼'} {quote.variacion}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
 // SRP: El componente HUD ahora solo se encarga de organizar el layout
 export const HUD = () => {
   return (
@@ -74,6 +122,7 @@ export const HUD = () => {
         <ControlsPanel />
       </div>
       <GameModal />
+      <MarketFooter />
     </div>
   );
 };
